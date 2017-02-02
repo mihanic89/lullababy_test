@@ -6,6 +6,7 @@ import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
+import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         animation = ObjectAnimator.ofInt (progressBar, "progress", 0, 500); //
         animation.setDuration (30000); //in milliseconds
-        animation.setInterpolator (new DecelerateInterpolator());
+        animation.setInterpolator (new LinearInterpolator());
 
 
         mTextField = (TextView) findViewById(R.id.textfield);
@@ -51,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //нажимаем стоп
                 cancelTimer();
+                animation.cancel();
+                progressBar.clearAnimation();
             }
         });
     }
@@ -79,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
     void cancelTimer(){
         if (cTimer!=null)
             cTimer.cancel();
-        progressBar.clearAnimation();
+
+
     }
 }
